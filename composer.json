@@ -16,7 +16,18 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+
+        "friendsofsymfony/user-bundle": "~1.3",
+        "knplabs/knp-menu-bundle": "dev-master",
+        "sonata-project/core-bundle": "dev-master",
+        "sonata-project/admin-bundle": "dev-master",
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "sonata-project/easy-extends-bundle": "dev-master",
+        "sonata-project/user-bundle": "dev-master",
+        "sonata-project/datagrid-bundle": "dev-master",
+        "jms/serializer-bundle": "^1.1",
+        "sonata-project/media-bundle": "^2.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
@@ -41,10 +52,7 @@
         ]
     },
     "config": {
-        "bin-dir": "bin",
-        "platform": {
-            "php": "5.3.9"
-        }
+        "bin-dir": "bin"
     },
     "extra": {
         "symfony-app-dir": "app",

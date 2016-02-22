@@ -6,11 +6,11 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: ru
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -38,12 +38,22 @@ twig:
 
 # Assetic Configuration
 assetic:
+    node: /usr/bin/node
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ ApplicationSonataAdminBundle ]
+    assets:
+      application_sonata_admin:
+          inputs:
+              - '@ApplicationSonataAdminBundle/Resources/public/css/*'
+              - '@AppBundle/Resources/public/css/*'
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
+        scssphp:
+            formatter: 'Leafo\ScssPhp\Formatter\Compressed'
+        uglifycss:
+            bin: /usr/local/lib/node_modules/uglifycss/uglifycss
         #closure:
         #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
         #yui_css:
@@ -59,6 +69,8 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        types:
+              json: Sonata\Doctrine\Types\JsonType
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -78,3 +90,98 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_user:
+  db_driver:  orm # can be orm or odm
+  firewall_name:  main
+  user_class:  Application\Sonata\UserBundle\Entity\User
+
+  group:
+    group_class:  Application\Sonata\UserBundle\Entity\Group
+    group_manager: sonata.user.orm.group_manager
+
+  service:
+    user_manager: sonata.user.orm.user_manager
+
+  registration:
+    confirmation:
+      enabled: false
+
+sonata_admin:
+    persist_filters: true
+    dashboard:
+      groups:
+        sonata_user:
+          label: Пользователи
+          icon: ~
+          roles: [ROLE_ADMIN]
+    title:  Автоматизированная система расчетов
+    title_logo:           bundles/app/image/logo.png
+    options:
+      title_mode: "single_image"
+    templates:
+        layout: ApplicationSonataAdminBundle::standard_layout.html.twig
+    assets:
+      stylesheets:
+            - bundles/sonatacore/vendor/bootstrap/dist/css/bootstrap.min.css
+            - bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.min.css
+            - bundles/sonatacore/vendor/ionicons/css/ionicons.min.css
+            - bundles/sonataadmin/vendor/admin-lte/dist/css/AdminLTE.min.css
+            - bundles/sonataadmin/vendor/admin-lte/dist/css/skins/_all-skins.min.css
+            - bundles/sonataadmin/vendor/iCheck/skins/square/blue.css
+            - bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css
+            - bundles/sonataadmin/vendor/jqueryui/themes/base/jquery-ui.css
+            - bundles/sonatacore/vendor/select2/select2.css
+            - bundles/sonatacore/vendor/select2-bootstrap-css/select2-bootstrap.min.css
+            - bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
+            - bundles/sonataadmin/css/styles.css
+            - bundles/sonataadmin/css/layout.css
+            - bundles/sonataadmin/css/tree.css
+
+
+sonata_block:
+  default_contexts: [cms]
+  blocks:
+    # Enable the SonataAdminBundle block
+    sonata.admin.block.admin_list:
+      contexts:  [admin]
+
+
+sonata_user:
+  #security_acl: true # Uncomment for ACL support
+  manager_type: orm # can be orm or mongodb
+
+sonata_media:
+    # if you don't use default namespace configuration
+    #class:
+    #    media: MyVendor\MediaBundle\Entity\Media
+    #    gallery: MyVendor\MediaBundle\Entity\Gallery
+    #    gallery_has_media: MyVendor\MediaBundle\Entity\GalleryHasMedia
+    default_context: default
+    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr
+    contexts:
+        agreement:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 2000 , quality: 100}
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  %kernel.root_dir%/../web/uploads/media
+            create:     false
