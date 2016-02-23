@@ -45,7 +45,7 @@ assetic:
     assets:
       application_sonata_admin:
           inputs:
-              - '@ApplicationSonataAdminBundle/Resources/public/css/*'
+#              - '@ApplicationSonataAdminBundle/Resources/public/css/*'
               - '@AppBundle/Resources/public/css/*'
               - '@SonataAdminBundle/Resources/public/vendor/admin-lte/dist/css/*'
     #java: /usr/bin/java
@@ -94,6 +94,7 @@ swiftmailer:
     encryption: ssl
 
 fos_user:
+  profile: ~
   from_email: # global email address for fosuserbundle
       address:        carwest@tut.by
       sender_name:    knocker
@@ -168,6 +169,11 @@ sonata_block:
 sonata_user:
   #security_acl: true # Uncomment for ACL support
   manager_type: orm # can be orm or mongodb
+  profile:
+    menu:
+      - { route: 'sonata_user_profile_show', label: 'sonata_profile_title', domain: 'SonataUserBundle'}
+      - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
+      - { route: 'fos_user_security_logout', label: 'fos_user_logout', domain: 'SonataUserBundle'}
 
 sonata_media:
     # if you don't use default namespace configuration

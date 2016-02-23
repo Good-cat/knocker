@@ -37,6 +37,7 @@ security:
             context: user
             anonymous: ~
         default:
+                    pattern: ^/.*
                     context:  user
                     form_login:
                       provider:  fos_userbundle
@@ -44,9 +45,9 @@ security:
                       use_forward:  false
                       check_path:  /login_check
                       failure_path:  null
+                      default_target_path: /profile
                     logout:
                       path:  /logout
-#                    anonymous:  true
                     switch_user:   true
 
     access_control:

@@ -12,9 +12,16 @@
     </head>
     <body>
         <div class="container">
+            {% block navbar %}
+            {% endblock %}
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}
+            {% javascripts
+                '@AppBundle/Resources/public/js/*'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% endblock %}
     </body>
 </html>
