@@ -33,7 +33,7 @@ security:
                     anonymous:  true
                     switch_user:        true
         login:
-            pattern: ^/(login$|register)
+            pattern: ^/(login$|register|(resetting*))
             context: user
             anonymous: ~
         default:

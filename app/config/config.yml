@@ -41,12 +41,13 @@ assetic:
     node: /usr/bin/node
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ApplicationSonataAdminBundle ]
+    bundles:        [ ApplicationSonataAdminBundle, SonataUserBundle ]
     assets:
       application_sonata_admin:
           inputs:
               - '@ApplicationSonataAdminBundle/Resources/public/css/*'
               - '@AppBundle/Resources/public/css/*'
+              - '@SonataAdminBundle/Resources/public/vendor/admin-lte/dist/css/*'
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -90,8 +91,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    encryption: ssl
 
 fos_user:
+  from_email: # global email address for fosuserbundle
+      address:        carwest@tut.by
+      sender_name:    knocker
   db_driver:  orm # can be orm or odm
   firewall_name:  main
   user_class:  Application\Sonata\UserBundle\Entity\User
@@ -102,11 +107,22 @@ fos_user:
 
   service:
     user_manager: sonata.user.orm.user_manager
+    mailer: fos_user.mailer.twig_swift
 
   registration:
     confirmation:
-      enabled: false
-
+      enabled: true
+      from_email: # Use this node only if you don't want the global email address for the confirmation email
+          address:        carwest@tut.by
+          sender_name:    knocker
+      template:   FOSUserBundle:Registration:email.txt.twig
+  resetting:
+    token_ttl: 86400
+    email:
+        from_email: # Use this node only if you don't want the global email address for the resetting email
+          address:        carwest@tut.by
+          sender_name:    knocker
+        template:   FOSUserBundle:Resetting:email.txt.twig
 sonata_admin:
     persist_filters: true
     dashboard:
@@ -115,7 +131,7 @@ sonata_admin:
           label: Пользователи
           icon: ~
           roles: [ROLE_ADMIN]
-    title:  Автоматизированная система расчетов
+    title:  KNOCKER
     title_logo:           bundles/app/image/logo.png
     options:
       title_mode: "single_image"
@@ -145,6 +161,8 @@ sonata_block:
     # Enable the SonataAdminBundle block
     sonata.admin.block.admin_list:
       contexts:  [admin]
+    sonata.user.block.menu: ~
+    sonata.block.service.text: ~
 
 
 sonata_user:
