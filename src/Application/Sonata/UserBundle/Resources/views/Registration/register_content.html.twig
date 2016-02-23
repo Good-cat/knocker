@@ -1,15 +1,37 @@
-<div class="panel panel-success">
-    <div class="panel-heading">
+<div class="login-box">
+    <div class="login-logo">
         <h2 class="panel-title">{{ 'title_user_registration'|trans({}, 'SonataUserBundle') }}</h2>
     </div>
-    <div class="panel-body">
-        <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal">
+    <div class="login-box-body">
+        {{ form_start(form) }}
+        {% set class = 'form-control' %}
+        <div class="form-group">
+            {{ form_widget(form.username, {'attr' : {'class' : class, 'placeholder' : 'form.username'|trans({}, 'FOSUserBundle')}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.email, {'attr' : {'class' : class, 'placeholder' : 'form.email'|trans({}, 'FOSUserBundle')}}) }}
+        </div>
+        {#{{ dump(form) }}#}
+        {#<div class="form-group">#}
+            {#{{ form_row(form.password) }}#}
+        {#</div>#}
+        <div class="form-group">
+            {{ form_widget(form.plainPassword.first, {'attr' : {'class' : class, 'placeholder' : 'form.password'|trans({}, 'FOSUserBundle')}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.plainPassword.second, {'attr' : {'class' : class, 'placeholder' : 'form.password_confirmation'|trans({}, 'FOSUserBundle')}}) }}
+        </div>
 
-            {{ form_widget(form) }}
+            {#{{ form_widget(form) }}#}
 
-            <div class="form-actions">
-                <input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-success pull-right" />
+        <div class="row">
+            <div class="col-xs-7">
+                <a href="{{ path('fos_user_security_login') }}">{{ 'link_login'|trans({}, 'SonataUserBundle') }}</a>
             </div>
-        </form>
+            <div class="col-xs-5">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
     </div>
 </div>
