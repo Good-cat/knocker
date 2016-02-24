@@ -28,7 +28,7 @@ class ApiController extends FOSRestController{
     public function getKnockerUser($userKey)
     {
 
-        $user = $this->get('doctrine')->getRepository('ApplicationSonataUserBundle:User')->findOneBy(['userkey' => $userKey]);
+        $user = $this->get('doctrine')->getRepository('ApplicationSonataUserBundle:User')->findOneBy(['userKey' => $userKey]);
         if (
             $user &&
             $user->isAccountNonExpired() &&
