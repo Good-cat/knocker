@@ -31,6 +31,11 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var string $userKey;
+     */
+    protected $userKey;
+
+    /**
      * Get id
      *
      * @return int $id
@@ -38,5 +43,28 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set userKey
+     *
+     *
+     * @return User
+     */
+    public function setUserKey()
+    {
+        $this->userKey = sha1($this->username);
+
+        return $this;
+    }
+
+    /**
+     * Get userKey
+     *
+     * @return string
+     */
+    public function getUserKey()
+    {
+        return $this->userKey;
     }
 }
