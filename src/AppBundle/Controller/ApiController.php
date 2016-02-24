@@ -8,8 +8,9 @@
 namespace AppBundle\Controller;
 
 
-use Application\Sonata\UserBundle\Document\User;
+use Application\Sonata\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -26,11 +27,22 @@ class ApiController extends FOSRestController{
      */
     public function getKnockerUser($userKey)
     {
-        $user = new User();
-        $user->setUsername($userKey);
-        $view = $this
-            ->view($user, 200)
-            ->setFormat('json');
+
+        $user = $this->get('doctrine')->getRepository('ApplicationSonataUserBundle:User')->findOneBy(['userkey' => $userKey]);
+        if (
+            $user &&
+            $user->isAccountNonExpired() &&
+            $user->isAccountNonLocked() &&
+            $user->isEnabled() &&
+            $user->isCredentialsNonExpired()
+        ) {
+            $user->setRoles($this->get('app.knocker_role_builder')->getKnockerRoles($user->getId()));
+            $view = $this
+                ->view($user, 200)
+                ->setFormat('json');
+        } else {
+            $view = $this->view();
+        };
 
         return $this->handleView($view);
     }
