@@ -4,25 +4,28 @@
     </div>
     <div class="login-box-body">
         {{ form_start(form) }}
+        {% if not form.vars.valid %}
+            <div class="alert alert-danger">
+                {{ form_errors(form.username) }}
+                {{ form_errors(form.email) }}
+                {{ form_errors(form.plainPassword.first) }}
+                {{ form_errors(form.plainPassword.second) }}
+            </div>
+        {% endif %}
         {% set class = 'form-control' %}
         <div class="form-group">
+
             {{ form_widget(form.username, {'attr' : {'class' : class, 'placeholder' : 'form.username'|trans({}, 'FOSUserBundle')}}) }}
         </div>
         <div class="form-group">
             {{ form_widget(form.email, {'attr' : {'class' : class, 'placeholder' : 'form.email'|trans({}, 'FOSUserBundle')}}) }}
         </div>
-        {#{{ dump(form) }}#}
-        {#<div class="form-group">#}
-            {#{{ form_row(form.password) }}#}
-        {#</div>#}
         <div class="form-group">
             {{ form_widget(form.plainPassword.first, {'attr' : {'class' : class, 'placeholder' : 'form.password'|trans({}, 'FOSUserBundle')}}) }}
         </div>
         <div class="form-group">
             {{ form_widget(form.plainPassword.second, {'attr' : {'class' : class, 'placeholder' : 'form.password_confirmation'|trans({}, 'FOSUserBundle')}}) }}
         </div>
-
-            {#{{ form_widget(form) }}#}
 
         <div class="row">
             <div class="col-xs-7">

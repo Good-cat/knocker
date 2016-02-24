@@ -55,9 +55,6 @@ registration:
 
             Для подтверждения вашей регистрации, пройдите по ссылке %confirmationUrl%
 
-            С наилучшими пожеланиями,
-            команда сайта.
-
 # Password resetting
 resetting:
     password_already_requested: Пароль для данного пользователя уже запрашивался за последние 24 часа.
