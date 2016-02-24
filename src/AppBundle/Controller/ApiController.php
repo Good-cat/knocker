@@ -8,8 +8,8 @@
 namespace AppBundle\Controller;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\RestBundle\Controller\FOSRestController;
 
-class ApiController extends Controller{
+class ApiController extends FOSRestController{
 
 } 

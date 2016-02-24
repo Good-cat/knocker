@@ -27,7 +27,8 @@
         "sonata-project/user-bundle": "dev-master",
         "sonata-project/datagrid-bundle": "dev-master",
         "jms/serializer-bundle": "^1.1",
-        "sonata-project/media-bundle": "^2.3"
+        "sonata-project/media-bundle": "^2.3",
+        "friendsofsymfony/rest-bundle": "^1.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
