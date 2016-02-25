@@ -41,11 +41,11 @@ assetic:
     node: /usr/bin/node
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ApplicationSonataAdminBundle, SonataUserBundle ]
+    bundles:        [ ApplicationSonataAdminBundle, SonataUserBundle, AppBundle ]
     assets:
       application_sonata_admin:
           inputs:
-              - '@ApplicationSonataAdminBundle/Resources/public/css/*'
+#              - '@ApplicationSonataAdminBundle/Resources/public/css/*'
               - '@AppBundle/Resources/public/css/*'
               - '@SonataAdminBundle/Resources/public/vendor/admin-lte/dist/css/*'
     #java: /usr/bin/java
