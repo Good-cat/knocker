@@ -2,6 +2,8 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: '@AppBundle/Resources/config/services.yml'}
+    - { resource: '@AppBundle/Resources/config/admin.yml'}
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -128,6 +130,10 @@ sonata_admin:
     persist_filters: true
     dashboard:
       groups:
+        app.service:
+          label: Услуги
+          icon: '<i class="fa fa-th"></i>'
+          roles: [ROLE_ADMIN]
         sonata_user:
           label: Пользователи
           icon: ~
@@ -169,6 +175,10 @@ sonata_block:
 sonata_user:
   #security_acl: true # Uncomment for ACL support
   manager_type: orm # can be orm or mongodb
+  admin:
+    user:
+      class: Application\Sonata\UserBundle\Admin\UserAdmin
+      translation:  SonataUserBundle
   profile:
     dashboard:
       blocks:
