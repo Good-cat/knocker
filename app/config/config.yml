@@ -45,7 +45,7 @@ assetic:
     assets:
       application_sonata_admin:
           inputs:
-#              - '@ApplicationSonataAdminBundle/Resources/public/css/*'
+              - '@ApplicationSonataAdminBundle/Resources/public/css/*'
               - '@AppBundle/Resources/public/css/*'
               - '@SonataAdminBundle/Resources/public/vendor/admin-lte/dist/css/*'
     #java: /usr/bin/java
@@ -116,7 +116,7 @@ fos_user:
       from_email: # Use this node only if you don't want the global email address for the confirmation email
           address:        carwest@tut.by
           sender_name:    knocker
-      template:   FOSUserBundle:Registration:email.txt.twig
+      template:   ApplicationSonataUserBundle:Registration:email.txt.twig
   resetting:
     token_ttl: 86400
     email:
@@ -170,10 +170,13 @@ sonata_user:
   #security_acl: true # Uncomment for ACL support
   manager_type: orm # can be orm or mongodb
   profile:
+    dashboard:
+      blocks:
+        - { position: left, type: sonata.block.service.text, settings: { content: "<h2>Правила добавления ссылок на сайт</h2> Ссылка должна быть на следующий url: new.by/ключ доступа (см. выше)/имя каталога"} }
     menu:
       - { route: 'sonata_user_profile_show', label: 'sonata_profile_title', domain: 'SonataUserBundle'}
       - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
-      - { route: 'fos_user_security_logout', label: 'fos_user_logout', domain: 'SonataUserBundle'}
+      - { route: 'fos_user_security_logout', label: 'layout.logout', domain: 'FOSUserBundle'}
 
 sonata_media:
     # if you don't use default namespace configuration
