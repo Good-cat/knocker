@@ -7,8 +7,23 @@
 
 namespace AppBundle\Controller;
 
-use FOS\UserBundle\Controller\ProfileController as FOSProfileController;
-class ProfileController extends FOSProfileController
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * Class ProfileController
+ * @package AppBundle\Controller
+ * @Route("/profile")
+ */
+class ProfileController extends Controller
 {
-    public function
+    /**
+     * @Route("/services", name="profile_services")
+     */
+    public function servicesAction()
+    {
+        $services = $this->get('doctrine')->getRepository('AppBundle:Service')->findAll();
+
+        return $this->render('ApplicationSonataUserBundle:Profile:services.html.twig', ['services' => $services]);
+    }
 } 

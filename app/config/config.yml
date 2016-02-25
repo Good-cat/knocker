@@ -177,6 +177,7 @@ sonata_user:
       - { route: 'sonata_user_profile_show', label: 'sonata_profile_title', domain: 'SonataUserBundle'}
       - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
       - { route: 'fos_user_security_logout', label: 'layout.logout', domain: 'FOSUserBundle'}
+      - { route: 'profile_services', label: 'Услуги'}
 
 sonata_media:
     # if you don't use default namespace configuration
