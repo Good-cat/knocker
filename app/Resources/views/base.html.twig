@@ -3,6 +3,14 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block javascripts %}
+            {% javascripts
+            '@AppBundle/Resources/public/js/*'
+            'bundles/sonataadmin/vendor/jquery/dist/jquery.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
         {% block stylesheets %}
             {% stylesheets '@application_sonata_admin' filter='uglifycss' filter='cssrewrite' output='css/sonata.admin.css'%}
             <link rel="stylesheet" href="{{ asset_url }}" />
@@ -16,12 +24,6 @@
             {% endblock %}
             {% block body %}{% endblock %}
         </div>
-        {% block javascripts %}
-            {% javascripts
-                '@AppBundle/Resources/public/js/*'
-            %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
+
     </body>
 </html>

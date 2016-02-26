@@ -1,3 +1,37 @@
-{% for service in services %}
-    {{ service.name }}
-{% endfor %}
+{% extends 'ApplicationSonataUserBundle:Profile:show.html.twig' %}
+{% block sonata_profile_content %}
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Доступны следующие услуги</h2>
+            <table class="table table-striped table-responsive">
+                {% for service in services %}
+                    <tr>
+                        <td><input type="checkbox" value="{{ service.id }}" name="service[]"></td>
+                        <td>{{ service.name }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <a class="btn btn-success" id="button">Выставить счет</a>
+        </div>
+    </div>
+{% block ajax %}
+
+    <script>
+        $('body').on('click', 'a[id=button]', function(){
+            var data = $('input[type=checkbox]:checked').serializeArray();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('createCount') }}",
+                    data: {parameters: data},
+                    success: function(data) {
+                        alert(data);
+                    },
+                    error:  function(xhr, str){
+                        alert('error');
+                    }
+                });
+        });
+    </script>
+{% endblock %}
+{% endblock %}

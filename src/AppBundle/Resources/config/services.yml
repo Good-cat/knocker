@@ -1,3 +1,9 @@
 services:
   app.knocker_role_builder:
     class: AppBundle\Roles\KnockerRoleBuilder
+
+  app.count.create.listener:
+    class: AppBundle\EventListeners\CreateCountListener
+    arguments: [@doctrine.orm.entity_manager]
+    tags:
+        - { name: kernel.event_listener, event: count.create }

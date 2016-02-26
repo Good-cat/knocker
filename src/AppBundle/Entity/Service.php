@@ -29,9 +29,9 @@ class Service {
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Application\Sonata\UserBundle\Entity\User", mappedBy="groups")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Count", mappedBy="services")
      */
-    private $users;
+    private $counts;
 
     /**
      * Constructor
@@ -98,38 +98,38 @@ class Service {
     {
         return $this->slug;
     }
-
+ 
     /**
-     * Add user
+     * Add count
      *
-     * @param \Application\Sonata\UserBundle\Entity\User $user
+     * @param \AppBundle\Entity\Count $count
      *
      * @return Service
      */
-    public function addUser(\Application\Sonata\UserBundle\Entity\User $user)
+    public function addCount(\AppBundle\Entity\Count $count)
     {
-        $this->users[] = $user;
+        $this->counts[] = $count;
 
         return $this;
     }
 
     /**
-     * Remove user
+     * Remove count
      *
-     * @param \Application\Sonata\UserBundle\Entity\User $user
+     * @param \AppBundle\Entity\Count $count
      */
-    public function removeUser(\Application\Sonata\UserBundle\Entity\User $user)
+    public function removeCount(\AppBundle\Entity\Count $count)
     {
-        $this->users->removeElement($user);
+        $this->counts->removeElement($count);
     }
 
     /**
-     * Get users
+     * Get counts
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers()
+    public function getCounts()
     {
-        return $this->users;
+        return $this->counts;
     }
 }

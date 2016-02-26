@@ -67,43 +67,45 @@ class User extends BaseUser
     {
         return $this->userKey;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $services;
+    private $counts;
 
 
     /**
-     * Add service
+     * Add count
      *
-     * @param \AppBundle\Entity\Service $service
+     * @param \AppBundle\Entity\Count $count
      *
      * @return User
      */
-    public function addService(\AppBundle\Entity\Service $service)
+    public function addCount(\AppBundle\Entity\Count $count)
     {
-        $this->services[] = $service;
+        $count->setUser($this);
+        $this->counts[] = $count;
 
         return $this;
     }
 
     /**
-     * Remove service
+     * Remove count
      *
-     * @param \AppBundle\Entity\Service $service
+     * @param \AppBundle\Entity\Count $count
      */
-    public function removeService(\AppBundle\Entity\Service $service)
+    public function removeCount(\AppBundle\Entity\Count $count)
     {
-        $this->services->removeElement($service);
+        $this->counts->removeElement($count);
     }
 
     /**
-     * Get services
+     * Get counts
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getServices()
+    public function getCounts()
     {
-        return $this->services;
+        return $this->counts;
     }
 }
