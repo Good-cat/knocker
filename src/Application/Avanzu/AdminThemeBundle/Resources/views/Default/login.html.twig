@@ -1,0 +1,46 @@
+{% extends 'AvanzuAdminThemeBundle:layout:login-layout.html.twig' %}
+
+{% block page_content %}
+    <div class="login-box">
+        <div class="login-logo">
+            KNOCKER
+        </div><!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Введите Ваши данные</p>
+            <form action="{{ path('fos_user_security_check') }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                <input type="hidden" name="_target_path" value="/profile"/>
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" placeholder="Пользователь" name="_username" value="{{ last_username }}"/>
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="Пароль" name="_password"/>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        {#<div class="checkbox">#}
+                            {#<label>#}
+                                {#<input type="checkbox"> Remember Me#}
+                            {#</label>#}
+                        {#</div>#}
+                    </div><!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                    </div><!-- /.col -->
+                </div>
+            </form>
+
+            {#<div class="social-auth-links text-center">#}
+                {#<p>- OR -</p>#}
+                {#<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>#}
+                {#<a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>#}
+            {#</div><!-- /.social-auth-links -->#}
+
+            <a href="{{ path('sonata_user_resetting_request') }}">{{ 'forgotten_password'|trans({}, 'SonataUserBundle') }}</a><br/>
+            <a href="{{ path('fos_user_registration_register') }}">{{ 'link_register'|trans({}, 'SonataUserBundle') }}</a>
+
+        </div><!-- /.login-box-body -->
+    </div>
+{% endblock %}

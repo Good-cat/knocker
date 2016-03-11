@@ -4,9 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a97ba0daf41991f5e962b69c674f21bf",
-    "content-hash": "310a38b7ff618134f1218ee0cc35ddae",
+    "hash": "8b6e977f9184ecf6b87b7cf5fe400d3e",
+    "content-hash": "7dc724a942e93388c8f9b93758930d45",
     "packages": [
+        {
+            "name": "avanzu/admin-theme-bundle",
+            "version": "1.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/avanzu/AdminThemeBundle.git",
+                "reference": "24a1ac93ace744b5e8cffe6681009a4cc8f3a133"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/avanzu/AdminThemeBundle/zipball/24a1ac93ace744b5e8cffe6681009a4cc8f3a133",
+                "reference": "24a1ac93ace744b5e8cffe6681009a4cc8f3a133",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/assetic-bundle": ">=2.3",
+                "symfony/event-dispatcher": ">=2.3",
+                "symfony/http-foundation": ">=2.3",
+                "symfony/http-kernel": ">=2.3",
+                "symfony/twig-bundle": ">=2.3"
+            },
+            "require-dev": {
+                "hamcrest/hamcrest-php": "dev-master",
+                "mockery/mockery": "0.9.*@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Avanzu\\AdminThemeBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Bach",
+                    "email": "mail@avanzu.de"
+                }
+            ],
+            "description": "Admin Theme based on the AdminLTE Template for easy integration into symfony",
+            "time": "2015-12-29 23:17:55"
+        },
         {
             "name": "cocur/slugify",
             "version": "v1.4.1",
@@ -1537,7 +1582,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/20e7a0f492c6d94a63bffc14105c5b748c00e3ae",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/9ce196d1c901d6434a0491ceab15aab8a9e5d47e",
                 "reference": "20e7a0f492c6d94a63bffc14105c5b748c00e3ae",
                 "shasum": ""
             },
@@ -2276,7 +2321,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/926f15924f612c75366472d99bedf8c6ca25ea68",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/9681619bdfb130ff746e8289f7d2660b9d5318e4",
                 "reference": "926f15924f612c75366472d99bedf8c6ca25ea68",
                 "shasum": ""
             },
@@ -2492,7 +2537,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/223413426b10f83051a3547d277fef9cd0bd7423",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/41a82b8d0c6bbea95dbbd617ef0156b08e5002df",
                 "reference": "223413426b10f83051a3547d277fef9cd0bd7423",
                 "shasum": ""
             },
@@ -3143,7 +3188,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/68c392a2b37e2fde716a939c1abc87a13eaac297",
+                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/9c6cde90a2003a77a43f6156569ee0d23a467824",
                 "reference": "68c392a2b37e2fde716a939c1abc87a13eaac297",
                 "shasum": ""
             },

@@ -33,6 +33,9 @@ class AppKernel extends Kernel
             new Application\Sonata\AdminBundle\ApplicationSonataAdminBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
 
+            new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
+            new Application\Avanzu\AdminThemeBundle\ApplicationAvanzuAdminThemeBundle(),
+
             new AppBundle\AppBundle(),
         );
 

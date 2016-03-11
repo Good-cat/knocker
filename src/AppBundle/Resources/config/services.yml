@@ -7,3 +7,9 @@ services:
     arguments: [@doctrine.orm.entity_manager]
     tags:
         - { name: kernel.event_listener, event: count.create }
+
+  avanzu.admin.lte.sidebar.menu.listener:
+    class: AppBundle\EventListeners\AvanzuAdminLTEListener
+    arguments: [@translator]
+    tags:
+        - {name: kernel.event_listener, event: theme.sidebar_setup_menu}
