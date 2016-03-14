@@ -29,9 +29,9 @@ class Service {
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Count", mappedBy="services")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Booking", mappedBy="services")
      */
-    private $counts;
+    private $bookings;
 
     /**
      * Constructor
@@ -100,36 +100,41 @@ class Service {
     }
  
     /**
-     * Add count
+     * Add booking
      *
-     * @param \AppBundle\Entity\Count $count
+     * @param \AppBundle\Entity\Booking $booking
      *
      * @return Service
      */
-    public function addCount(\AppBundle\Entity\Count $count)
+    public function addBooking(\AppBundle\Entity\Booking $booking)
     {
-        $this->counts[] = $count;
+        $this->bookings[] = $booking;
 
         return $this;
     }
 
     /**
-     * Remove count
+     * Remove booking
      *
-     * @param \AppBundle\Entity\Count $count
+     * @param \AppBundle\Entity\Booking $booking
      */
-    public function removeCount(\AppBundle\Entity\Count $count)
+    public function removeBooking(\AppBundle\Entity\Booking $booking)
     {
-        $this->counts->removeElement($count);
+        $this->bookings->removeElement($booking);
     }
 
     /**
-     * Get counts
+     * Get bookings
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCounts()
+    public function getBookings()
     {
-        return $this->counts;
+        return $this->bookings;
+    }
+
+    public function __toString()
+    {
+        return $this->getSlug();
     }
 }

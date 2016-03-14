@@ -8,12 +8,12 @@
 namespace AppBundle\EventListeners;
 
 
-use AppBundle\Entity\Count;
-use AppBundle\Events\CountEvent;
+use AppBundle\Entity\Booking;
+use AppBundle\Events\BookingEvent;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateCountListener {
+class CreateBookingListener {
 
 
 
@@ -24,19 +24,19 @@ class CreateCountListener {
         $this->em = $entityManager;
     }
 
-    public function onCountCreate(CountEvent $event)
+    public function onBookingCreate(BookingEvent $event)
     {
         $services = $event->getServices();
         if ($services->count()) {
-            $count = new Count();
+            $booking = new Booking();
 
-            $count->setUser($event->getUser());
+            $booking->setUser($event->getUser());
 
             foreach($services as $service) {
-                $count->addService($service);
+                $booking->addService($service);
             }
 
-            $this->em->persist($count);
+            $this->em->persist($booking);
             $this->em->flush();
 
         } else {

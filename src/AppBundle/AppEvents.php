@@ -11,7 +11,7 @@ namespace AppBundle;
 
 final class AppEvents {
 
-    const COUNT_CREATE  = 'count.create';
-    const COUNT_PAID    = 'count.paid';
+    const BOOKING_CREATE  = 'booking.create';
+    const BOOKING_PAID    = 'booking.paid';
 
 } 

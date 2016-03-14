@@ -11,10 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="count", options={"comment":"Счет. Счет не создается в админке, только динамически"})
+ * @ORM\Table(name="booking", options={"comment":"Заказ. Содержит в себе набор доступных услуг, надлежащих оплате"})
  * @ORM\HasLifecycleCallbacks()
  */
-class Count {
+class Booking {
 
     public function __construct()
     {
@@ -27,18 +27,18 @@ class Count {
      */
     private $id;
     /**
-     * @ORM\Column(type="string", nullable=true, options={"comment":"Номер счета"})
+     * @ORM\Column(type="string", nullable=true, options={"comment":"Номер заказа"})
      */
     private $number;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Service", inversedBy="counts")
-     * @ORM\JoinTable(name="counts_services")
+     * @ORM\ManyToMany(targetEntity="Service", inversedBy="bookings")
+     * @ORM\JoinTable(name="bookings_services")
      */
     private $services;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="counts")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="bookings")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -63,14 +63,12 @@ class Count {
      */
     private $paidAt;
 
-
-
     /**
      * Add service
      *
      * @param \AppBundle\Entity\Service $service
      *
-     * @return Count
+     * @return Booking
      */
     public function addService(\AppBundle\Entity\Service $service)
     {
@@ -115,7 +113,7 @@ class Count {
      *
      * @param \Application\Sonata\UserBundle\Entity\User $user
      *
-     * @return Count
+     * @return Booking
      */
     public function setUser(\Application\Sonata\UserBundle\Entity\User $user = null)
     {
@@ -139,7 +137,7 @@ class Count {
      *
      * @param string $number
      *
-     * @return Count
+     * @return Booking
      */
     public function setNumber($number)
     {
@@ -163,7 +161,7 @@ class Count {
      *
      * @param string $total
      *
-     * @return Count
+     * @return Booking
      */
     public function setTotal($total)
     {
@@ -187,7 +185,7 @@ class Count {
      *
      * @param boolean $paid
      *
-     * @return Count
+     * @return Booking
      */
     public function setPaid($paid)
     {
@@ -237,7 +235,7 @@ class Count {
      *
      * @param \DateTime $paidAt
      *
-     * @return Count
+     * @return Booking
      */
     public function setPaidAt($paidAt)
     {
@@ -254,5 +252,10 @@ class Count {
     public function getPaidAt()
     {
         return $this->paidAt;
+    }
+
+    public function isValid()
+    {
+        return true;
     }
 }

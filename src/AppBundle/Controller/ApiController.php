@@ -37,6 +37,7 @@ class ApiController extends FOSRestController{
             $user->isCredentialsNonExpired()
         ) {
             $user->setRoles($this->get('app.knocker_role_builder')->getKnockerRoles($user->getId()));
+
             $view = $this
                 ->view($user, 200)
                 ->setFormat('json');

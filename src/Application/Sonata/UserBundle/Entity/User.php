@@ -36,6 +36,18 @@ class User extends BaseUser
     protected $userKey;
 
     /**
+     * Заказы
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $bookings;
+
+    /**
+     * Счета, выставленные пользователю
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $invoices;
+
+    /**
      * Get id
      *
      * @return int $id
@@ -68,44 +80,52 @@ class User extends BaseUser
         return $this->userKey;
     }
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $counts;
-
 
     /**
-     * Add count
+     * Add booking
      *
-     * @param \AppBundle\Entity\Count $count
+     * @param \AppBundle\Entity\Booking $booking
      *
      * @return User
      */
-    public function addCount(\AppBundle\Entity\Count $count)
+    public function addBooking(\AppBundle\Entity\Booking $booking)
     {
-        $count->setUser($this);
-        $this->counts[] = $count;
+        $booking->setUser($this);
+        $this->bookings[] = $booking;
 
         return $this;
     }
 
     /**
-     * Remove count
+     * Remove booking
      *
-     * @param \AppBundle\Entity\Count $count
+     * @param \AppBundle\Entity\Booking $booking
      */
-    public function removeCount(\AppBundle\Entity\Count $count)
+    public function removeBooking(\AppBundle\Entity\Booking $booking)
     {
-        $this->counts->removeElement($count);
+        $this->bookings->removeElement($booking);
     }
 
     /**
-     * Get counts
+     * Get bookings
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCounts()
+    public function getBookings()
     {
-        return $this->counts;
+        return $this->bookings;
+    }
+
+    public function getServices()
+    {
+        $services = [];
+        if ($this->getBookings()){
+            foreach ($this->getBookings() as $booking) {
+                if ($booking->isValid()) {
+                    $services = array_merge($services, $booking->getServices()->toArray());
+                }
+            }
+        }
+        return $services;
     }
 }

@@ -66,4 +66,175 @@ class Period {
         ];
     }
 
-} 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tariff = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Period
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param string $unit
+     *
+     * @return Period
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Set unitsNumber
+     *
+     * @param string $unitsNumber
+     *
+     * @return Period
+     */
+    public function setUnitsNumber($unitsNumber)
+    {
+        $this->unitsNumber = $unitsNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get unitsNumber
+     *
+     * @return string
+     */
+    public function getUnitsNumber()
+    {
+        return $this->unitsNumber;
+    }
+
+    /**
+     * Set cost
+     *
+     * @param string $cost
+     *
+     * @return Period
+     */
+    public function setCost($cost)
+    {
+        $this->cost = $cost;
+
+        return $this;
+    }
+
+    /**
+     * Get cost
+     *
+     * @return string
+     */
+    public function getCost()
+    {
+        return $this->cost;
+    }
+
+    /**
+     * Set perDay
+     *
+     * @param boolean $perDay
+     *
+     * @return Period
+     */
+    public function setPerDay($perDay)
+    {
+        $this->perDay = $perDay;
+
+        return $this;
+    }
+
+    /**
+     * Get perDay
+     *
+     * @return boolean
+     */
+    public function getPerDay()
+    {
+        return $this->perDay;
+    }
+
+    /**
+     * Add tariff
+     *
+     * @param \AppBundle\Entity\Tariff $tariff
+     *
+     * @return Period
+     */
+    public function addTariff(\AppBundle\Entity\Tariff $tariff)
+    {
+        $this->tariff[] = $tariff;
+
+        return $this;
+    }
+
+    /**
+     * Remove tariff
+     *
+     * @param \AppBundle\Entity\Tariff $tariff
+     */
+    public function removeTariff(\AppBundle\Entity\Tariff $tariff)
+    {
+        $this->tariff->removeElement($tariff);
+    }
+
+    /**
+     * Get tariff
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTariff()
+    {
+        return $this->tariff;
+    }
+}

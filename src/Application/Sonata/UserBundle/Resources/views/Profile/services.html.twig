@@ -1,6 +1,6 @@
 {% extends 'ApplicationSonataUserBundle:Profile:show.html.twig' %}
     {% block page_title %}Доступны следующие услуги{% endblock %}
-{% block page_subtitle %}Control panel{% endblock %}
+{% block page_subtitle %}{% endblock %}
 {% block sonata_profile_content %}
 
 
@@ -12,7 +12,7 @@
                     </tr>
                 {% endfor %}
             </table>
-            <a class="btn btn-success" id="button">Выставить счет</a>
+            <a class="btn btn-success" id="button">Сформировать пакет услуг</a>
 
 
 {% block ajax %}
@@ -22,7 +22,7 @@
             var data = $('input[type=checkbox]:checked').serializeArray();
                 $.ajax({
                     type: "POST",
-                    url: "{{ path('createCount') }}",
+                    url: "{{ path('createBooking') }}",
                     data: {parameters: data},
                     success: function(data) {
                         alert(data);

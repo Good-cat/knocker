@@ -21,7 +21,13 @@ class KnockerRoleBuilder {
 
     public function getKnockerRoles($userId)
     {
-        $services = $this->em->getRepository("ApplicationSonataUserBundle:User")->find($userId)->getServices();
-        return [];
+        $roles = [];
+        if ($services = $this->em->getRepository("ApplicationSonataUserBundle:User")->find($userId)->getServices()) {
+            foreach($services as $service) {
+                $roles[] = $service->getSlug();
+            }
+        }
+
+        return $roles;
     }
 } 

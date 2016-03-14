@@ -8,7 +8,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppEvents;
-use AppBundle\Events\CountEvent;
+use AppBundle\Events\BookingEvent;
 use Application\Sonata\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +18,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class AjaxController extends Controller
 {
     /**
-     * @Route("/createCount", name="createCount")
+     * @Route("/createBooking", name="createBooking")
      */
-    public function createCount(Request $request)
+    public function createBooking(Request $request)
     {
         if ($request->isXmlHttpRequest()) {
 
@@ -31,7 +31,7 @@ class AjaxController extends Controller
             }
             if ($serviceIds) {
 
-                $event = new CountEvent();
+                $event = new BookingEvent();
 
                 $user = $this->getUser();
 
@@ -39,14 +39,14 @@ class AjaxController extends Controller
                     $event->setUser($user);
 
                 } else {
-                    return new Response(CountEvent::ERROR_BAD_USER);
+                    return new Response(BookingEvent::ERROR_BAD_USER);
                 }
 
                 foreach ($serviceIds as $id) {
                     $event->addService($this->get('doctrine')->getRepository('AppBundle:Service')->find($id));
                 }
 
-                $this->get('event_dispatcher')->dispatch(AppEvents::COUNT_CREATE, $event);
+                $this->get('event_dispatcher')->dispatch(AppEvents::BOOKING_CREATE, $event);
 
                 if ($errors = $event->getErrors()) {
                     return new Response($errors[0]);
@@ -54,8 +54,9 @@ class AjaxController extends Controller
                     return new Response('ok');
                 }
             } else {
-                return new Response(CountEvent::ERROR_SERVICES_EMPTY);
+                return new Response(BookingEvent::ERROR_SERVICES_EMPTY);
             }
         }
+        return new Response();
     }
 } 

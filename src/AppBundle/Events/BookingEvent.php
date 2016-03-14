@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\EventDispatcher\Event;
 use AppBundle\Entity\Service;
 
-class CountEvent extends Event
+class BookingEvent extends Event
 {
     const ERROR_SERVICES_EMPTY = 'services_empty';
     const ERROR_BAD_USER = 'bad_user';
