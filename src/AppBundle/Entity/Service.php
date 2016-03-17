@@ -8,9 +8,11 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="service", options={"comment":"Услуга"})
+ * @UniqueEntity("slug", message="Такое значение уже используется")
  */
 class Service {
     /**
@@ -32,6 +34,18 @@ class Service {
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Booking", mappedBy="services")
      */
     private $bookings;
+
+    /**
+     * @ORM\Column(type="boolean", options={"comment":"Является ли услуга активной"})
+     */
+    protected $isActive = true;
+
+    /**
+     * @ORM\Column(type="float", options={"comment":"Коэффициент стоимости относительно тарифа, примененного к пакету"})
+     * Например, тариф за пакет 10 условных единиц в месяц с применением к каждой услуги, входящей в пакет, если у услуги коэффициент стоимости
+     * 1.1, то она войдет в формулу с суммой 11 условных единиц
+     */
+    protected $costCoefficient;
 
     /**
      * Constructor
@@ -136,5 +150,53 @@ class Service {
     public function __toString()
     {
         return $this->getSlug();
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return Service
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set costCoefficient
+     *
+     * @param float $costCoefficient
+     *
+     * @return Service
+     */
+    public function setCostCoefficient($costCoefficient)
+    {
+        $this->costCoefficient = $costCoefficient;
+
+        return $this;
+    }
+
+    /**
+     * Get costCoefficient
+     *
+     * @return float
+     */
+    public function getCostCoefficient()
+    {
+        return $this->costCoefficient;
     }
 }

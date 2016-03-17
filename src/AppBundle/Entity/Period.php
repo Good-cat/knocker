@@ -14,9 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Period {
 
-    const PERIOD_DAY_KEY = D;
-    const PERIOD_MONTH_KEY = M;
-    const PERIOD_YEAR_KEY = Y;
+    const PERIOD_DAY_KEY = "D";
+    const PERIOD_MONTH_KEY = "M";
+    const PERIOD_YEAR_KEY = "Y";
 
     const PERIOD_DAY_VALUE = 'knocker.period.day';
     const PERIOD_MONTH_VALUE = 'knocker.period.month';
@@ -43,7 +43,7 @@ class Period {
     protected $unitsNumber;
 
     /**
-     * @ORM\Column(type="decimal", precision=18, scale=4, options={"comment":"Стоимость периода во внутренних единицах"})
+     * @ORM\Column(type="decimal", precision=18, scale=2, options={"comment":"Стоимость периода во внутренних единицах"})
      */
     protected $cost;
 
@@ -53,11 +53,11 @@ class Period {
     protected $perDay;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tariff", mappedBy="periods")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Tariff", mappedBy="period")
      */
-    protected $tariff;
+    protected $tariffs;
 
-    public function getAvailablePeriods()
+    public static function getAvailablePeriods()
     {
         return [
             self::PERIOD_DAY_KEY    => self::PERIOD_DAY_VALUE,
@@ -213,7 +213,7 @@ class Period {
      */
     public function addTariff(\AppBundle\Entity\Tariff $tariff)
     {
-        $this->tariff[] = $tariff;
+        $this->tariffs[] = $tariff;
 
         return $this;
     }
@@ -225,16 +225,16 @@ class Period {
      */
     public function removeTariff(\AppBundle\Entity\Tariff $tariff)
     {
-        $this->tariff->removeElement($tariff);
+        $this->tariffs->removeElement($tariff);
     }
 
     /**
-     * Get tariff
+     * Get tariffs
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTariff()
+    public function getTariffs()
     {
-        return $this->tariff;
+        return $this->tariffs;
     }
 }

@@ -15,8 +15,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use AppBundle\Entity\Period;
 
-class ServiceAdmin extends  Admin
+class PeriodAdmin extends  Admin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -27,12 +28,18 @@ class ServiceAdmin extends  Admin
                     'title' => 'Обязательное поле'
                 )
             ))
-            ->add('slug', 'text', array(
-                'label' => 'Шифр',
+            ->add('unitsNumber', null, array(
+                'label' => 'Количество',
                 'attr' => array(
                     'title' => 'Обязательное поле'
                 )
             ))
+            ->add('unit', 'choice', array(
+                'choices' => Period::getAvailablePeriods(),
+                'choice_translation_domain' => $this->getTranslationDomain()
+            ))
+            ->add('perDay', null)
+            ->add('cost', null)
         ;
     }
 
@@ -40,8 +47,11 @@ class ServiceAdmin extends  Admin
     {
         $listMapper
             ->addIdentifier('name', null, array('label' => 'Название'))
-            ->add('slug', null, array('label' => 'Шифр'))
-            ->add('isActive', null, array('label' => 'Активна', 'editable' => true))
+            ->add('unitsNumber', null, array('label' => 'Количество', 'editable' => true))
+            ->add('unit', 'choice', array(
+                'choices'=>Period::getAvailablePeriods(),
+                'catalogue' => $this->getTranslationDomain()))
+            ->add('cost', 'number', array('editable' => true))
         ;
     }
 
@@ -49,7 +59,7 @@ class ServiceAdmin extends  Admin
     {
         $datagridMapper
             ->add('name', null, array('label' => 'Название'))
-            ->add('slug', null, array('label' => 'Шифр'))
+//            ->add('slug', null, array('label' => 'Шифр'))
         ;
     }
 } 

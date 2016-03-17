@@ -4,3 +4,10 @@ services:
     arguments: [~, AppBundle\Entity\Service, ~]
     tags:
         - { name: sonata.admin, manager_type: orm, group: app.service, label: Услуги }
+  app.period.admin:
+    class: AppBundle\Admin\PeriodAdmin
+    arguments: [~, AppBundle\Entity\Period, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: app.service, label: Период }
+    calls:
+        - [ setTranslationDomain, [KnockerDomain]]

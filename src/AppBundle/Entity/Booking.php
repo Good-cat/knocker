@@ -44,7 +44,7 @@ class Booking {
     private $user;
 
     /**
-     * @ORM\Column(type="string", nullable=true,  options={"comment":"Сумма счета"})
+     * @ORM\Column(type="string", nullable=true,  options={"comment":"Сумма заказа"})
      */
     private $total;
 
@@ -52,6 +52,12 @@ class Booking {
      * @ORM\Column(type="boolean", nullable=true,  options={"comment":"Признак того, что счет оплачен"})
      */
     private $paid;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Tariff", inversedBy="bookings")
+     * @ORM\JoinColumn(name="tariff_id", referencedColumnName="id")
+     */
+    protected $tariff;
 
     /**
      * @ORM\Column(type="datetime", options={"comment":"Дата создания"})
@@ -72,7 +78,12 @@ class Booking {
      */
     public function addService(\AppBundle\Entity\Service $service)
     {
+        $service->addBooking($this);
         $this->services[] = $service;
+        $cost = $this->getTotal();
+        if ($this->getTariff() && $period = $this->getTariff()->getPeriod()) {
+            $cost += $period->getCost() * (int)$this->getTariff()->getForEachService() * $service->getCostCoefficient();
+        }
 
         return $this;
     }
@@ -257,5 +268,29 @@ class Booking {
     public function isValid()
     {
         return true;
+    }
+
+    /**
+     * Set tariff
+     *
+     * @param \AppBundle\Entity\Tariff $tariff
+     *
+     * @return Booking
+     */
+    public function setTariff(\AppBundle\Entity\Tariff $tariff = null)
+    {
+        $this->tariff = $tariff;
+
+        return $this;
+    }
+
+    /**
+     * Get tariff
+     *
+     * @return \AppBundle\Entity\Tariff
+     */
+    public function getTariff()
+    {
+        return $this->tariff;
     }
 }

@@ -36,15 +36,15 @@ class UsingFact {
     protected $code;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tariff", mappedBy="usingFacts")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Tariff", mappedBy="usingFact")
      */
-    protected $tariff;
+    protected $tariffs;
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->tariff = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tariffs = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -138,7 +138,7 @@ class UsingFact {
      */
     public function addTariff(\AppBundle\Entity\Tariff $tariff)
     {
-        $this->tariff[] = $tariff;
+        $this->tariffs[] = $tariff;
 
         return $this;
     }
@@ -150,16 +150,17 @@ class UsingFact {
      */
     public function removeTariff(\AppBundle\Entity\Tariff $tariff)
     {
-        $this->tariff->removeElement($tariff);
+        $this->tariffs->removeElement($tariff);
     }
 
+
     /**
-     * Get tariff
+     * Get tariffs
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTariff()
+    public function getTariffs()
     {
-        return $this->tariff;
+        return $this->tariffs;
     }
 }

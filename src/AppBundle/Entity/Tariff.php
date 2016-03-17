@@ -28,16 +28,21 @@ class Tariff {
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UsingFact", inversedBy="tariffs")
-     * @ORM\JoinTable(name="using_facts_tariffs")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UsingFact", inversedBy="tariffs")
+     * @ORM\JoinColumn(name="using_fact_id", referencedColumnName="id")
      */
-    protected $usingFacts;
+    protected $usingFact;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Period", inversedBy="tariffs")
-     * @ORM\JoinTable(name="periods_tariffs")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Period", inversedBy="tariffs")
+     * @ORM\JoinColumn(name="period_id", referencedColumnName="id")
      */
-    protected $periods;
+    protected $period;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Booking", mappedBy="tariff")
+     */
+    protected $bookings;
 
     protected $region;
 
@@ -110,70 +115,84 @@ class Tariff {
     }
 
     /**
-     * Add usingFact
+     * Add booking
      *
-     * @param \AppBundle\Entity\UsingFact $usingFact
+     * @param \AppBundle\Entity\Booking $booking
      *
      * @return Tariff
      */
-    public function addUsingFact(\AppBundle\Entity\UsingFact $usingFact)
+    public function addBooking(\AppBundle\Entity\Booking $booking)
     {
-        $this->usingFacts[] = $usingFact;
+        $this->bookings[] = $booking;
 
         return $this;
     }
 
     /**
-     * Remove usingFact
+     * Remove booking
      *
-     * @param \AppBundle\Entity\UsingFact $usingFact
+     * @param \AppBundle\Entity\Booking $booking
      */
-    public function removeUsingFact(\AppBundle\Entity\UsingFact $usingFact)
+    public function removeBooking(\AppBundle\Entity\Booking $booking)
     {
-        $this->usingFacts->removeElement($usingFact);
+        $this->bookings->removeElement($booking);
     }
 
     /**
-     * Get usingFacts
+     * Get bookings
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsingFacts()
+    public function getBookings()
     {
-        return $this->usingFacts;
+        return $this->bookings;
     }
 
     /**
-     * Add period
+     * Set usingFact
      *
-     * @param \AppBundle\Entity\Period $period
+     * @param \AppBundle\Entity\UsingFact $usingFact
      *
      * @return Tariff
      */
-    public function addPeriod(\AppBundle\Entity\Period $period)
+    public function setUsingFact(\AppBundle\Entity\UsingFact $usingFact = null)
     {
-        $this->periods[] = $period;
+        $this->usingFact = $usingFact;
 
         return $this;
     }
 
     /**
-     * Remove period
+     * Get usingFact
      *
-     * @param \AppBundle\Entity\Period $period
+     * @return \AppBundle\Entity\UsingFact
      */
-    public function removePeriod(\AppBundle\Entity\Period $period)
+    public function getUsingFact()
     {
-        $this->periods->removeElement($period);
+        return $this->usingFact;
     }
 
     /**
-     * Get periods
+     * Set period
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \AppBundle\Entity\Period $period
+     *
+     * @return Tariff
      */
-    public function getPeriods()
+    public function setPeriod(\AppBundle\Entity\Period $period = null)
     {
-        return $this->periods;
+        $this->period = $period;
+
+        return $this;
+    }
+
+    /**
+     * Get period
+     *
+     * @return \AppBundle\Entity\Period
+     */
+    public function getPeriod()
+    {
+        return $this->period;
     }
 }

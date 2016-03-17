@@ -11,9 +11,50 @@ file that was distributed with this source code.
 
 {% extends "ApplicationSonataUserBundle:Profile:action.html.twig" %}
 
-{% block sonata_profile_content %}
-    <div class="alert alert-success">Ключ доступа {{ app.user.userKey }}</div>
+{% set balance = 1 %}
+{% set charge = 3 %}
 
+{% block sonata_profile_content %}
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-key"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Ваш ключ доступа</span><br/>
+                <span class="info-box-text">{{ app.user.userKey }}</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box bg-{{ balance ? 'green' : 'red' }}">
+            <span class="info-box-icon"><i class="fa fa-money"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Ваш баланс</span>
+                <span class="info-box-number">{{ balance }} руб.</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box bg-yellow">
+            <span class="info-box-icon"><i class="fa fa-battery-{{ charge }}"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Осталось дней оказания услуги</span>
+                <span class="info-box-number">0</span>
+                <!-- The progress section is optional -->
+                <div class="progress">
+                    <div class="progress-bar" style="width: 75%"></div>
+                </div>
+        <span class="progress-description">
+          75% из 30 дней
+        </span>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+    </div>
     <div class="row row-fluid">
         {% set has_center = false %}
         {% for block in blocks %}
