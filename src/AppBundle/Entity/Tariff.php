@@ -47,7 +47,7 @@ class Tariff {
     protected $region;
 
     /**
-     * @ORM\Column(type="boolean", options={"comment":"Признак действия тарифа для каждой услуги в заказе, если false - то"})
+     * @ORM\Column(type="boolean", options={"comment":"Признак действия тарифа для каждой услуги в заказе, если false - то тариф применяется к заказу целиком (например, при списывании абонентской платы), если true - то тариф умножается на количество услуг с учетом коэффициента"})
      */
     protected $forEachService;
 

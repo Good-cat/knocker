@@ -7,6 +7,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Booking;
+use Application\Sonata\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,12 +25,19 @@ class ProfileController extends Controller
      */
     public function servicesAction()
     {
+        $diff = $this->getAvailableServices($this->getUser());
+
+        return $this->render('ApplicationSonataUserBundle:Profile:services.html.twig', ['services' => $diff]);
+    }
+
+    public function getAvailableServices(User $user)
+    {
         $services = $this->get('doctrine')->getRepository('AppBundle:Service')->findAll();
-        $bookingServices = $this->getUser()->getServices();
+        $bookingServices = $user->getServices();
 
         $diff = array_diff($services, $bookingServices);
 
-        return $this->render('ApplicationSonataUserBundle:Profile:services.html.twig', ['services' => $diff]);
+        return $diff;
     }
 
     /**
@@ -38,5 +47,15 @@ class ProfileController extends Controller
     {
         $bookings = $this->getUser()->getBookings();
         return $this->render('ApplicationSonataUserBundle:Profile:bookings.html.twig', ['bookings' => $bookings]);
+    }
+
+    /**
+     * @Route("/booking/create", name="create_booking")
+     */
+    public function createBookingAction()
+    {
+        $booking = new Booking();
+        $form = $this->createForm('booking_form', $booking);
+        return $this->render('AppBundle:Booking:form.html.twig', ['form' => $form->createView()]);
     }
 } 

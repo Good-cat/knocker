@@ -1,0 +1,8 @@
+{% extends '@ApplicationAvanzuAdminTheme/Default/form.html.twig' %}
+{% block page_title %} Новый заказ {% endblock %}
+{% block page_subtitle %}{% endblock %}
+{% block page_content %}
+    {{ form_start(form) }}
+    {{ form_row(form.tariff) }}
+    {{ form_end(form) }}
+{% endblock page_content %}

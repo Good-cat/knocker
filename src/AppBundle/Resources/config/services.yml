@@ -14,3 +14,8 @@ services:
     arguments: [@translator]
     tags:
         - {name: kernel.event_listener, event: theme.sidebar_setup_menu}
+
+  app.form.type.booking:
+    class: AppBundle\Form\Type\BookingType
+    tags:
+        - { name: form.type, alias: booking_form }
