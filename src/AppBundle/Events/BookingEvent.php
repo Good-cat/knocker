@@ -7,6 +7,7 @@
 
 namespace AppBundle\Events;
 
+use AppBundle\Entity\Tariff;
 use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\EventDispatcher\Event;
@@ -19,6 +20,7 @@ class BookingEvent extends Event
 
     private $services;
     private $user;
+    protected $tariff;
     private $errors;
 
     public function __construct()
@@ -52,6 +54,22 @@ class BookingEvent extends Event
         $this->errors[] = $name;
 
         return $this;
+    }
+
+    /**
+     * @param Tariff $tariff
+     * @return $this
+     */
+    public function setTariff(Tariff $tariff)
+    {
+        $this->tariff = $tariff;
+
+        return $this;
+    }
+
+    public function getTariff()
+    {
+        return $this->tariff;
     }
 
     /**

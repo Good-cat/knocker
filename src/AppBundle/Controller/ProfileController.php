@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Booking;
 use Application\Sonata\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,17 +26,20 @@ class ProfileController extends Controller
      */
     public function servicesAction()
     {
-        $diff = $this->getAvailableServices($this->getUser());
+        $diff = $this->getAvailableServices();
 
         return $this->render('ApplicationSonataUserBundle:Profile:services.html.twig', ['services' => $diff]);
     }
 
-    public function getAvailableServices(User $user)
+    public function getAvailableServices(Booking $booking = null)
     {
         $services = $this->get('doctrine')->getRepository('AppBundle:Service')->findAll();
-        $bookingServices = $user->getServices();
+        $diff = $services;
 
-        $diff = array_diff($services, $bookingServices);
+        if ($booking) {
+            $bookingServices = $booking->getServices()->toArray();
+            $diff = array_diff($services, $bookingServices);
+        }
 
         return $diff;
     }
@@ -46,16 +50,58 @@ class ProfileController extends Controller
     public function bookingsAction()
     {
         $bookings = $this->getUser()->getBookings();
-        return $this->render('ApplicationSonataUserBundle:Profile:bookings.html.twig', ['bookings' => $bookings]);
+        $services = array();
+        foreach ($bookings as $booking) {
+            $services[$booking->getId()] = $this->getAvailableServices($booking);
+        }
+        return $this->render('ApplicationSonataUserBundle:Profile:bookings.html.twig', [
+            'bookings' => $bookings,
+            'services' => $services]);
     }
 
     /**
      * @Route("/booking/create", name="create_booking")
      */
-    public function createBookingAction()
+    public function createBookingAction(Request $request)
     {
-        $booking = new Booking();
+        $booking = $this->get('app.factory')->getBooking();
+        $booking->setUser($this->getUser());
         $form = $this->createForm('booking_form', $booking);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($booking);
+            $em->flush();
+
+            return $this->redirectToRoute('profile_bookings');
+        }
         return $this->render('AppBundle:Booking:form.html.twig', ['form' => $form->createView()]);
     }
+
+    /**
+     * @Route("/booking/update/{id}", name="update_booking")
+     */
+    public function updateBookingAction(Request $request, $id)
+    {
+        try {
+            $booking = $this->get('app.factory')->getBooking($id);
+            $form = $this->createForm('booking_form', $booking);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage());
+        }
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($booking);
+            $em->flush();
+
+            return $this->redirectToRoute('profile_bookings');
+        }
+        return $this->render('AppBundle:Booking:form.html.twig', ['form' => $form->createView()]);
+    }
+
 } 

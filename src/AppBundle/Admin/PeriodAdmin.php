@@ -51,6 +51,7 @@ class PeriodAdmin extends  Admin
             ->add('unit', 'choice', array(
                 'choices'=>Period::getAvailablePeriods(),
                 'catalogue' => $this->getTranslationDomain()))
+            ->add('perDay', null, array('editable' => true))
             ->add('cost', 'number', array('editable' => true))
         ;
     }

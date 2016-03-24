@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('.knocker input[type=checkbox]').iCheck({
+    $('input[type=checkbox].knocker ').iCheck({
         checkboxClass: 'icheckbox_square-purple',
         radioClass: 'iradio_square',
         increaseArea: '20%' // optional

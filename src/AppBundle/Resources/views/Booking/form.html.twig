@@ -1,8 +1,28 @@
-{% extends '@ApplicationAvanzuAdminTheme/Default/form.html.twig' %}
+{% extends '::base.html.twig' %}
 {% block page_title %} Новый заказ {% endblock %}
 {% block page_subtitle %}{% endblock %}
 {% block page_content %}
-    {{ form_start(form) }}
-    {{ form_row(form.tariff) }}
-    {{ form_end(form) }}
+    <div class="box box-default">
+        <div class="box-header"></div>
+        <div class="box-body" style="display: block;">
+            <div class="row">
+                <div class="col-xs-12">
+                    {{ form_start(form) }}
+                    {{ form_row(form.tariff) }}
+                    {{ form_row(form.urlPre) }}
+                    {{ form_row(form.urlPost) }}
+                    {{ form_row(form.services) }}
+                    <input type="submit" value="Сохранить"
+                           class="btn btn-success btn-flat" />
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $('select').select2();
+        {#{{ include('@App/Booking/_form.js.twig', {'success': 'sdfsf'}) }}#}
+    </script>
 {% endblock page_content %}

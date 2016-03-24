@@ -7,6 +7,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
@@ -45,14 +46,15 @@ class Service {
      * Например, тариф за пакет 10 условных единиц в месяц с применением к каждой услуги, входящей в пакет, если у услуги коэффициент стоимости
      * 1.1, то она войдет в формулу с суммой 11 условных единиц
      */
-    protected $costCoefficient;
+    protected $costCoefficient = 1;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
     }
 
     /**

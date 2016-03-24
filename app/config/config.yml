@@ -37,6 +37,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+      owner_url: http://www.new.by
 
 # Assetic Configuration
 assetic:
@@ -132,6 +134,10 @@ sonata_admin:
         app.service:
           label: Услуги
           icon: '<i class="fa fa-th"></i>'
+          roles: [ROLE_ADMIN]
+        app.tariff:
+          label: Тарифы
+          icon: '<i class="fa fa-dollar"></i>'
           roles: [ROLE_ADMIN]
         sonata_user:
           label: Пользователи

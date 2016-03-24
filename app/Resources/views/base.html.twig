@@ -44,6 +44,7 @@
 
     {# -------------------------------------------------------------------------------------------------- STYLESHEETS #}
     {% block stylesheets %}
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="{{ asset('bundles/avanzuadmintheme/static/'~ app.environment ~'/styles/admin-lte-all.css') }}" />
         <link rel="stylesheet" href="{{ asset('bundles/avanzuadmintheme/vendor/iCheck/skins/all.css') }}" />
     {% endblock %}
@@ -53,7 +54,9 @@
 
     {# --------------------------------------------------------------------------------------------- JAVASCRIPTS_HEAD #}
     {%  block javascripts_head %}
+
         <script type="text/javascript" src="{{ asset('bundles/avanzuadmintheme/vendor/jquery/dist/jquery.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.full.min.js"></script>
         <script type="text/javascript" src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/modernizr.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/avanzuadmintheme/vendor/iCheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/app/js/app.js') }}"></script>

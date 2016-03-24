@@ -60,6 +60,16 @@ class Booking {
     protected $tariff;
 
     /**
+     * @ORM\Column(type="string",  options={"comment":"URL до"})
+     */
+    protected $urlPre;
+
+    /**
+     * @ORM\Column(type="string", nullable=true,  options={"comment":"URL после"})
+     */
+    protected $urlPost;
+
+    /**
      * @ORM\Column(type="datetime", options={"comment":"Дата создания"})
      */
     private $cteatedAt;
@@ -292,5 +302,53 @@ class Booking {
     public function getTariff()
     {
         return $this->tariff;
+    }
+
+    /**
+     * Set urlPre
+     *
+     * @param string $urlPre
+     *
+     * @return Booking
+     */
+    public function setUrlPre($urlPre)
+    {
+        $this->urlPre = $urlPre;
+
+        return $this;
+    }
+
+    /**
+     * Get urlPre
+     *
+     * @return string
+     */
+    public function getUrlPre()
+    {
+        return $this->urlPre;
+    }
+
+    /**
+     * Set urlPost
+     *
+     * @param string $urlPost
+     *
+     * @return Booking
+     */
+    public function setUrlPost($urlPost)
+    {
+        $this->urlPost = $urlPost;
+
+        return $this;
+    }
+
+    /**
+     * Get urlPost
+     *
+     * @return string
+     */
+    public function getUrlPost()
+    {
+        return $this->urlPost;
     }
 }

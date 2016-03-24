@@ -8,6 +8,20 @@ services:
     class: AppBundle\Admin\PeriodAdmin
     arguments: [~, AppBundle\Entity\Period, ~]
     tags:
-        - { name: sonata.admin, manager_type: orm, group: app.service, label: Период }
+        - { name: sonata.admin, manager_type: orm, group: app.tariff, label: Период }
+    calls:
+        - [ setTranslationDomain, [KnockerDomain]]
+  app.usingfact.admin:
+    class: AppBundle\Admin\UsingFactAdmin
+    arguments: [~, AppBundle\Entity\UsingFact, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: app.tariff, label: Событие }
+    calls:
+        - [ setTranslationDomain, [KnockerDomain]]
+  app.tariff.admin:
+    class: AppBundle\Admin\TariffAdmin
+    arguments: [~, AppBundle\Entity\Tariff, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: app.tariff, label: Тариф }
     calls:
         - [ setTranslationDomain, [KnockerDomain]]

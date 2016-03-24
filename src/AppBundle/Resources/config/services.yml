@@ -19,3 +19,13 @@ services:
     class: AppBundle\Form\Type\BookingType
     tags:
         - { name: form.type, alias: booking_form }
+
+  app.factory:
+    class: AppBundle\Factory\Factory
+    arguments: ['@doctrine.orm.entity_manager']
+
+  security.access.booking_voter:
+      class:      AppBundle\Security\Authorization\Voter\BookingVoter
+      public:     false
+      tags:
+          - { name: security.voter }

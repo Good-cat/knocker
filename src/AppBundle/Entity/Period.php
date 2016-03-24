@@ -237,4 +237,9 @@ class Period {
     {
         return $this->tariffs;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
