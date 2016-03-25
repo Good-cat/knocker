@@ -10,8 +10,6 @@ namespace AppBundle;
 
 
 final class AppEvents {
-
-    const BOOKING_CREATE  = 'booking.create';
-    const BOOKING_PAID    = 'booking.paid';
-
-} 
+    const BOOKING_CREATE           = 'booking.create';
+    const BOOKING_CHANGE_STATUS    = 'booking.change.status';
+}

@@ -20,17 +20,26 @@
                             <tr>
                                 <th>Название</th>
                                 <th>Url</th>
+                                <th>Стоимость</th>
                                 <th>Действия</th>
                             </tr>
                             </tbody>
                             {% for service in booking.services %}
+                                {% set period_cost = booking.getTariff.getPeriod.getCost is defined  ? booking.getTariff.getPeriod.getCost : 0 %}
+                                {% set event_cost = booking.getTariff.getUsingFact.getCost is defined ? booking.getTariff.getUsingFact.getCost : 0 %}
                                 <tr>
                                     <td>{{ service.name }}</td>
                                     <td>{{ owner_url }}/{{ app.getUser().getUserKey() }}/{{ booking.getId() }}/{{ service.slug }}</td>
+                                    <td>{{ service.getCostCoefficient * period_cost + event_cost }}</td>
                                     <td style="width: 50px;"><a class="btn btn-default btn-xs btn-flat" title="Удалить" for="detach" service="{{ service.id }}"><i class="fa fa-times"></i></a> </td>
                                 </tr>
                                 <script>{{ include('@ApplicationSonataUser/Profile/_detach_service_from_booking.js', {service_id: service.id, booking_id: booking.getId()}) }}</script>
                             {% endfor %}
+                            <tr>
+                                <td>
+                                    {{ dump(booking) }}
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div class="box-footer">

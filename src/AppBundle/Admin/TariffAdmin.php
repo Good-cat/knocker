@@ -34,7 +34,9 @@ class TariffAdmin extends Admin
             ))
             ->add('usingFact', 'entity', array(
                 'class' => 'AppBundle:UsingFact'
-            ));
+            ))
+            ->add('forEachService', null)
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper)

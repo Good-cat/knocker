@@ -8,10 +8,12 @@
             <div class="row">
                 <div class="col-xs-12">
                     {{ form_start(form) }}
-                    {{ form_row(form.tariff) }}
-                    {{ form_row(form.urlPre) }}
-                    {{ form_row(form.urlPost) }}
-                    {{ form_row(form.services) }}
+                    <div class="col-xs-12">{{ form_row(form.tariff) }}</div>
+                    <div class="col-xs-5">{{ form_row(form.urlPre) }}</div>
+                    <div class="col-xs-2"><label>Номер артикула</label><input type="text" class="form-control" disabled placeholder="По результатам поиска" /></div>
+                    <div class="col-xs-5">{{ form_row(form.urlPost) }}</div>
+
+                    <div class="col-xs-12">{{ form_row(form.services) }}</div>
                     <input type="submit" value="Сохранить"
                            class="btn btn-success btn-flat" />
                     {{ form_end(form) }}

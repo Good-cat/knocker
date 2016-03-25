@@ -25,7 +25,12 @@ services:
     arguments: ['@doctrine.orm.entity_manager']
 
   security.access.booking_voter:
-      class:      AppBundle\Security\Authorization\Voter\BookingVoter
-      public:     false
-      tags:
-          - { name: security.voter }
+    class:      AppBundle\Security\Authorization\Voter\BookingVoter
+    public:     false
+    tags:
+        - { name: security.voter }
+
+  doctrine.booking.total.subscriber:
+    class: AppBundle\EventListeners\Doctrine\BookingTotalDoctrineEventSubscriber
+    tags:
+        - {name: doctrine.event_subscriber, connection: default}

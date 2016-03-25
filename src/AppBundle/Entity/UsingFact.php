@@ -98,7 +98,7 @@ class UsingFact {
     /**
      * Get cost
      *
-     * @return string
+     * @return float
      */
     public function getCost()
     {

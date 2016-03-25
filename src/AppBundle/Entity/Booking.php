@@ -8,11 +8,14 @@
 namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="booking", options={"comment":"Заказ. Содержит в себе набор доступных услуг, надлежащих оплате"})
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(fields={"urlPre", "urlPost"})
  */
 class Booking {
 
@@ -90,10 +93,6 @@ class Booking {
     {
         $service->addBooking($this);
         $this->services[] = $service;
-        $cost = $this->getTotal();
-        if ($this->getTariff() && $period = $this->getTariff()->getPeriod()) {
-            $cost += $period->getCost() * (int)$this->getTariff()->getForEachService() * $service->getCostCoefficient();
-        }
 
         return $this;
     }
@@ -350,5 +349,13 @@ class Booking {
     public function getUrlPost()
     {
         return $this->urlPost;
+    }
+
+    /**
+     * @ORM\PreFlush()
+     */
+    public function prePersist()
+    {
+        var_dump('ok');
     }
 }

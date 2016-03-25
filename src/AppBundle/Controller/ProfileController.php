@@ -7,9 +7,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppEvents;
 use AppBundle\Entity\Booking;
 use Application\Sonata\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,6 +68,10 @@ class ProfileController extends Controller
     {
         $booking = $this->get('app.factory')->getBooking();
         $booking->setUser($this->getUser());
+
+        $event = new GenericEvent($booking);
+        $this->get('event_dispatcher')->dispatch(AppEvents::BOOKING_CREATE, $event);
+
         $form = $this->createForm('booking_form', $booking);
         $form->handleRequest($request);
 

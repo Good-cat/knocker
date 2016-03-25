@@ -9,13 +9,11 @@ namespace AppBundle\EventListeners;
 
 
 use AppBundle\Entity\Booking;
-use AppBundle\Events\BookingEvent;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Response;
 
 class CreateBookingListener {
-
-
 
     private $em;
 
@@ -24,23 +22,14 @@ class CreateBookingListener {
         $this->em = $entityManager;
     }
 
-    public function onBookingCreate(BookingEvent $event)
+    public function onBookingCreate(GenericEvent $event)
     {
-        $services = $event->getServices();
-        if ($services->count()) {
-            $booking = new Booking();
-
-            $booking->setUser($event->getUser());
-
-            foreach($services as $service) {
+        $booking = $event->getSubject();
+        if ($booking instanceof Booking) {
+            $services = $this->em->getRepository('AppBundle:Service')->findAll();
+            foreach ($services as $service) {
                 $booking->addService($service);
             }
-
-            $this->em->persist($booking);
-            $this->em->flush();
-
-        } else {
-            $event->addError($event::ERROR_SERVICES_EMPTY);
         }
     }
 } 
