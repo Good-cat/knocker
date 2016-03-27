@@ -1,7 +1,7 @@
 $(document).ready(function(){
         var service_id = "{{service_id}}";
         var booking_id = "{{booking_id}}";
-        $('body').on('click', 'a[for=detach][service=' + service_id + ']', function(){
+        $('body').on('click', 'a[for=detach][service=' + service_id + '][booking=' + booking_id + ']', function(){
             if (confirm('Вы действительно хотите удалить услугу из заказа?')) {
                 $.ajax({
                     type: "POST",

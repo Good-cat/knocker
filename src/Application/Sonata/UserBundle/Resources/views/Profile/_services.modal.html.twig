@@ -13,7 +13,7 @@
                 <table class="table table-striped table-responsive">
                     {% for service in services %}
                         <tr>
-                            <td><div ><input type="checkbox" class="knocker" id="{{ service.id }}" value="{{ service.id }}" name="service[]"></div> </td>
+                            <td><div ><input type="checkbox" class="knocker" id="{{ service.id }}" booking="{{ booking_id }}" value="{{ service.id }}" name="service[]"></div> </td>
                             <td>{{ service.name }}</td>
                         </tr>
                     {% endfor %}

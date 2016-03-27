@@ -1,7 +1,7 @@
 $(document).ready(function(){
         var booking_id = "{{booking_id}}";
         $('body').on('click', 'button[id=attach_services][booking=' + booking_id + ']', function(){
-            var data = $('input[type=checkbox]:checked').serializeArray();
+            var data = $('input[type=checkbox][booking=' + booking_id + ']:checked').serializeArray();
             if(data.length){
                 var service_ids = [];
                 $.each(data, function(index, value) {
