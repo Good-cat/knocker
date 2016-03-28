@@ -83,6 +83,12 @@ class Booking {
     private $paidAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Currency")
+     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
+     */
+    protected $currency;
+
+    /**
      * Add service
      *
      * @param \AppBundle\Entity\Service $service
@@ -357,5 +363,29 @@ class Booking {
     public function prePersist()
     {
         var_dump('ok');
+    }
+
+    /**
+     * Set currency
+     *
+     * @param \AppBundle\Entity\Currency $currency
+     *
+     * @return Booking
+     */
+    public function setCurrency(\AppBundle\Entity\Currency $currency = null)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return \AppBundle\Entity\Currency
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 }

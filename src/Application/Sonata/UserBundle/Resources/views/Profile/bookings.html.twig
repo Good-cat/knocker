@@ -7,23 +7,23 @@
 
     <section class="content">
     {% for booking in bookings %}
-        <div class="box">
+        <div class="box box-default box-solid">
             <div class="box-header">
                 <h3 class="box-title">Заказ #{{ booking.getId() }}</h3>
             </div>
             <div class="box-body">
                 <div class="form-group"><b>Тариф: </b>{{ booking.getTariff() }}</div>
                 <div class="form-group"><b>Url поиска:</b> {{ booking.getUrlPre() }}XXXXXXX{{ booking.getUrlPost() }}</div>
-                <div class="box box-default box-solig">
+                <div class="box box-default">
                     <div class="box-header with-border">
                         Каталоги
                     </div>
                     <div class="box-body">
-                        <table class="table table-striped table-responsive table-bordered">
+                        <table class="table">
                             <tbody>
                             <tr>
                                 <th>Название</th>
-                                <th>Url</th>
+                                <th>Url для ссылки</th>
                                 <th>Стоимость</th>
                                 <th>Действия</th>
                             </tr>
@@ -31,18 +31,22 @@
                             {% for service in booking.services %}
                                 {% set period_cost = booking.getTariff.getPeriod.getCost is defined  ? booking.getTariff.getPeriod.getCost : 0 %}
                                 {% set event_cost = booking.getTariff.getUsingFact.getCost is defined ? booking.getTariff.getUsingFact.getCost : 0 %}
+                                {% set for_every_service = booking.getTariff.getForEachService is defined ? booking.getTariff.getForEachService : 0 %}
                                 <tr>
                                     <td>{{ service.name }}</td>
                                     <td>{{ owner_url }}/{{ app.getUser().getUserKey() }}/{{ booking.getId() }}/{{ service.slug }}</td>
-                                    <td>{{ service.getCostCoefficient * period_cost + event_cost }}</td>
+                                    <td>{{ for_every_service ? service.getCostCoefficient * period_cost + event_cost : "По мере наличия средств" }}</td>
                                     <td style="width: 50px;"><a class="btn btn-default btn-xs btn-flat" title="Удалить" for="detach" service="{{ service.id }}" booking="{{ booking.getId() }}"><i class="fa fa-times"></i></a> </td>
                                 </tr>
                                 <script>{{ include('@ApplicationSonataUser/Profile/_detach_service_from_booking.js', {service_id: service.id, booking_id: booking.getId()}) }}</script>
                             {% endfor %}
                             <tr>
+                                <td>Итого</td>
+                                <td></td>
                                 <td>
-                                    {{ booking.total }}
+                                    {{ booking.total * booking.getCurrency().getRate()}}
                                 </td>
+                                <td>{{ booking.getCurrency() }}</td>
                             </tr>
                         </table>
                     </div>

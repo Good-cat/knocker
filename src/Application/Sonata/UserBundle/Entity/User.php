@@ -48,6 +48,11 @@ class User extends BaseUser
     protected $invoices;
 
     /**
+     * @var \AppBundle\Entity\Region
+     */
+    protected $region;
+
+    /**
      * Get id
      *
      * @return int $id
@@ -127,5 +132,29 @@ class User extends BaseUser
             }
         }
         return $services;
+    }
+
+    /**
+     * Set region
+     *
+     * @param \AppBundle\Entity\Region $region
+     *
+     * @return User
+     */
+    public function setRegion(\AppBundle\Entity\Region $region = null)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return \AppBundle\Entity\Region
+     */
+    public function getRegion()
+    {
+        return $this->region;
     }
 }

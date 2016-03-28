@@ -7,12 +7,20 @@
 
 namespace AppBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class BookingType extends AbstractType{
+
+    protected $tokenStorage;
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -41,6 +49,19 @@ class BookingType extends AbstractType{
                 'translation_domain' => 'KnockerDomain',
                 'expanded' => false,
                 'multiple' => true,
+                'attr' => ['style' => 'width: 100%']
+            ))
+            ->add('currency', 'entity', array(
+                'class' => 'AppBundle:Currency',
+                'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('c')
+                            ->leftJoin('c.regions', 'r')
+                            ->andWhere('r.id = :region')
+                            ->setParameter('region', $this->tokenStorage->getToken()->getUser()->getRegion())
+                            ;
+                    },
+                'expanded' => false,
+                'multiple' => false,
                 'attr' => ['style' => 'width: 100%']
             ))
 

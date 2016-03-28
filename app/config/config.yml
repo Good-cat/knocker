@@ -97,7 +97,13 @@ swiftmailer:
     encryption: ssl
 
 fos_user:
-  profile: ~
+  profile:  # Authentication Form
+          form:
+              type:               fos_user_profile
+              handler:            fos_user.profile.form.handler.default
+              name:               fos_user_profile_form
+              validation_groups:  [Authentication] # Please note : this is not the default value
+
   from_email: # global email address for fosuserbundle
       address:        carwest@tut.by
       sender_name:    knocker
@@ -138,6 +144,10 @@ sonata_admin:
         app.tariff:
           label: Тарифы
           icon: '<i class="fa fa-dollar"></i>'
+          roles: [ROLE_ADMIN]
+        app.region:
+          label: Регионы и валюты
+          icon: '<i class="fa fa-ruble"></i>'
           roles: [ROLE_ADMIN]
         sonata_user:
           label: Пользователи
@@ -185,6 +195,11 @@ sonata_user:
       class: Application\Sonata\UserBundle\Admin\UserAdmin
       translation:  SonataUserBundle
   profile:
+    form:
+        type:               application_sonata_user_profile
+        handler:            sonata.user.profile.form.handler.default
+        name:               sonata_user_profile_form
+        validation_groups:  [Profile]
     dashboard:
       blocks:
         - { position: left, type: sonata.block.service.text, settings: { content: "<h2>Правила добавления ссылок на сайт</h2> Ссылка должна быть на следующий url: new.by/ключ доступа (см. выше)/имя каталога"} }

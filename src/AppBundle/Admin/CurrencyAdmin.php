@@ -16,7 +16,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ServiceAdmin extends  Admin
+class CurrencyAdmin extends  Admin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -27,13 +27,16 @@ class ServiceAdmin extends  Admin
                     'title' => 'Обязательное поле'
                 )
             ))
-            ->add('slug', 'text', array(
-                'label' => 'Шифр',
+            ->add('rate', null)
+            ->add('regions', 'entity', array(
+                'class' => 'AppBundle:Region',
+                'label' => 'Регионы',
+                'required' => false,
+                'multiple' => true,
                 'attr' => array(
                     'title' => 'Обязательное поле'
                 )
             ))
-            ->add('costCoefficient', null)
         ;
     }
 
@@ -41,9 +44,6 @@ class ServiceAdmin extends  Admin
     {
         $listMapper
             ->addIdentifier('name', null, array('label' => 'Название'))
-            ->add('slug', null, array('label' => 'Шифр'))
-            ->add('isActive', null, array('label' => 'Активна', 'editable' => true))
-            ->add('costCoefficient', null, array('editable' => true))
         ;
     }
 
@@ -51,7 +51,6 @@ class ServiceAdmin extends  Admin
     {
         $datagridMapper
             ->add('name', null, array('label' => 'Название'))
-            ->add('slug', null, array('label' => 'Шифр'))
         ;
     }
 } 

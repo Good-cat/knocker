@@ -25,3 +25,17 @@ services:
         - { name: sonata.admin, manager_type: orm, group: app.tariff, label: Тариф }
     calls:
         - [ setTranslationDomain, [KnockerDomain]]
+  app.region.admin:
+    class: AppBundle\Admin\RegionAdmin
+    arguments: [~, AppBundle\Entity\Region, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: app.region, label: Регион }
+    calls:
+        - [ setTranslationDomain, [KnockerDomain]]
+  app.currency.admin:
+    class: AppBundle\Admin\CurrencyAdmin
+    arguments: [~, AppBundle\Entity\Currency, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: app.region, label: Валюта }
+    calls:
+        - [ setTranslationDomain, [KnockerDomain]]

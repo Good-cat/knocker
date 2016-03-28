@@ -17,6 +17,7 @@ services:
 
   app.form.type.booking:
     class: AppBundle\Form\Type\BookingType
+    arguments: ['@security.token_storage']
     tags:
         - { name: form.type, alias: booking_form }
 
@@ -34,3 +35,9 @@ services:
     class: AppBundle\EventListeners\Doctrine\BookingTotalDoctrineEventSubscriber
     tags:
         - {name: doctrine.event_subscriber, connection: default}
+
+  application.sonata.user.profile.form.type:
+    class: Application\Sonata\UserBundle\Form\Type\ProfileType
+    arguments: [%fos_user.model.user.class%]
+    tags:
+        - {name: form.type, alias: application_sonata_user_profile}

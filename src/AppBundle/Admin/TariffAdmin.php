@@ -33,7 +33,8 @@ class TariffAdmin extends Admin
                 'required' => false
             ))
             ->add('usingFact', 'entity', array(
-                'class' => 'AppBundle:UsingFact'
+                'class' => 'AppBundle:UsingFact',
+                'required' => false
             ))
             ->add('forEachService', null)
         ;

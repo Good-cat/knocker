@@ -9,6 +9,7 @@ Cost: Стоимость в системных единицах
 Period: Период
 Using Fact: Событие
 Services: Услуги
+Currency: Валюта платежа
 url:
   pre: URL до артикула
   post: URL после артикула
