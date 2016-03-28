@@ -25,7 +25,7 @@ class Currency {
      */
     protected $name;
     /**
-     * @ORM\Column(type="decimal", options={"comment":"Курс по отношению к системной единице"})
+     * @ORM\Column(type="decimal", precision=18, scale=2, options={"comment":"Курс по отношению к системной единице"})
      */
     protected $rate;
 
@@ -108,6 +108,7 @@ class Currency {
      */
     public function addRegion(\AppBundle\Entity\Region $region)
     {
+        $region->addCurrency($this);
         $this->regions[] = $region;
 
         return $this;
@@ -120,6 +121,7 @@ class Currency {
      */
     public function removeRegion(\AppBundle\Entity\Region $region)
     {
+        $region->removeCurrency($this);
         $this->regions->removeElement($region);
     }
 
