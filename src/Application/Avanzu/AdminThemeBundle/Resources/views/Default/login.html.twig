@@ -7,6 +7,9 @@
         </div><!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">Введите Ваши данные</p>
+            {% if error %}
+                <div class="alert alert-danger alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+            {% endif %}
             <form action="{{ path('fos_user_security_check') }}" method="post">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
                 <input type="hidden" name="_target_path" value="/profile"/>

@@ -29,7 +29,7 @@
                             </tr>
                             </tbody>
                             {% for service in booking.services %}
-                                {% set period_cost = booking.getTariff.getPeriod.getCost is defined  ? booking.getTariff.getPeriod.getCost : 0 %}
+                                {% set period_cost = booking.getTariff.getPeriod.getCost is defined  ? booking.getTariff.getPeriod.getCost * booking.getCurrency.getRate : 0 %}
                                 {% set event_cost = booking.getTariff.getUsingFact.getCost is defined ? booking.getTariff.getUsingFact.getCost : 0 %}
                                 {% set for_every_service = booking.getTariff.getForEachService is defined ? booking.getTariff.getForEachService : 0 %}
                                 <tr>
