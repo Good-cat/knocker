@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Application\Avanzu\AdminThemeBundle\ApplicationAvanzuAdminThemeBundle(),
 
             new AppBundle\AppBundle(),
+            new BookingBundle\BookingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

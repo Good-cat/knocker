@@ -10,13 +10,16 @@ namespace AppBundle\Factory;
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\Service;
 use Doctrine\ORM\EntityManager;
+use BookingBundle\Entity\BookingManager;
 
 class Factory {
 
     protected $em;
+    protected $bookingManager;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(BookingManager $bookingManager, EntityManager $entityManager)
     {
+        $this->bookingManager = $bookingManager;
         $this->em = $entityManager;
     }
 
@@ -28,11 +31,10 @@ class Factory {
     public function getBooking($id = null)
     {
         if ($id) {
-            $booking = $this->em->getRepository('AppBundle:Booking')->find($id);
-            if ($booking) {
-                return $booking;
-            } else {
-                throw new \Exception('Заказ с идентификатором ' . $id . ' отсутствует в базе.');
+            try{
+                return $this->bookingManager->getBooking($id);
+            } catch(\Exception $e) {
+                echo $e->getMessage();
             }
         }
 

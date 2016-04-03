@@ -25,21 +25,16 @@ class AjaxController extends Controller
         $booking_id = $request->get('booking_id');
         $service_id = $request->get('service_id');
         if ($booking_id) {
-            try {
-                $booking = $this->get('app.factory')->getBooking($booking_id);
-                if ($service_id) {
-                    try {
-                        $service = $this->get('app.factory')->getService($service_id);
-                        $booking->removeService($service);
-                        $this->getDoctrine()->getManager()->flush();
-                    } catch (\Exception $e)
-                    {
-                        echo $e->getMessage();
-                    }
+            $booking = $this->get('app.factory')->getBooking($booking_id);
+            if ($service_id) {
+                try {
+                    $service = $this->get('app.factory')->getService($service_id);
+                    $booking->removeService($service);
+                    $this->getDoctrine()->getManager()->flush();
+                } catch (\Exception $e)
+                {
+                    echo $e->getMessage();
                 }
-            } catch (\Exception $e)
-            {
-                echo $e->getMessage();
             }
         }
 

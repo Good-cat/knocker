@@ -8,6 +8,8 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Booking;
+use AppBundle\Entity\Service;
 use Application\Sonata\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -22,24 +24,40 @@ class ApiController extends FOSRestController{
 
     /**
      * @param $userKey
+     * @param $bookingId
      * @return mixed|void
-     * @Route("/user/{userKey}")
+     * @Route("/user/{userKey}/{bookingId}")
+     * $result = array ('userId', 'redirectUrl', 'services', 'eventCode')
      */
-    public function getKnockerUser($userKey)
+    public function getKnockerUser($userKey, $bookingId)
     {
 
         $user = $this->get('doctrine')->getRepository('ApplicationSonataUserBundle:User')->findOneBy(['userKey' => $userKey]);
         if (
-            $user &&
+            $user instanceof User &&
             $user->isAccountNonExpired() &&
             $user->isAccountNonLocked() &&
             $user->isEnabled() &&
             $user->isCredentialsNonExpired()
         ) {
-            $user->setRoles($this->get('app.knocker_role_builder')->getKnockerRoles($user->getId()));
+            $result = array();
+            $result['userKey'] = $user->getUserKey();
+            $bookingManager = $this->get('booking.manager');
+            $booking = $bookingManager->getBooking($bookingId);
+            if ($booking && in_array($booking, $user->getBookings()->toArray())  && $booking instanceof Booking && $this->get('booking.manager')->isValidBooking($bookingId)) {
+                $result['redirectUrl'] = $booking->getUrlPre() . '%articleNumber%' . $booking->getUrlPost();
+                if (is_object($booking->getTariff()->getUsingFact())) {
+                    $result['eventCode'] = $booking->getTariff()->getUsingFact()->getCode();
+                }
+                foreach ($booking->getServices() as $service) {
+                    if ($service instanceof Service) {
+                        $result['services'][] = $service->getSlug();
+                    }
+                }
 
+            }
             $view = $this
-                ->view($user, 200)
+                ->view($result, 200)
                 ->setFormat('json');
         } else {
             $view = $this->view();
